@@ -1,1 +1,0 @@
-I am new to GitHub and don't know how to make new folders without making a dummy file first. This is that file
