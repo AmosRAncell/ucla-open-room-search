@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>UCLA Room Search</title>
+	</head>
+	<body>
+		<div id="navBar">
+			<a href="/index">Home</a>
+		</div>
+		<hr>
+		<form action="" method="post" novalidate>
+			{{ form.hidden_tag() }}
+			<p>
+				{{ form.term.label }}<br>
+				{{ form.term() }}
+				{% for error in form.term.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+			</p>
+			<p>
+				{{ form.year.label }}<br>
+				{{ form.year() }}
+				{% for error in form.year.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+			</p>
+			<p>
+				{{ form.dayOfWeek.label }}<br>
+				{{ form.dayOfWeek() }}
+				{% for error in form.dayOfWeek.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+			</p>
+			<p>
+				{{ form.time.label }}<br>
+				{{ form.time() }}
+				{% for error in form.time.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+			</p>
+			<p>{{ form.submit() }}</p>
+		</form>
+
+		{% with flashMessages = get_flashed_messages() %}
+		{% if flashMessages %}
+		<ul>
+			{% for message in flashMessages %}
+			<li>{{ message }}</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+		{% endwith %}
+
+		{% if openRooms %}
+		<table id="openRoomData">
+		<thead>
+			<th>Building</th>
+			<th>Room</th>
+			<th>Hours Until Next Class</th>
+		</thead>
+		<tbody>
+		{% for row in openRooms %}
+			<tr>
+			<td>{{ row['building'] }}</td>
+			<td>{{ row['room'] }}<td>
+			<td>{{ row['hoursTillNextClass'] }}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+		</table>
+		{% endif %}
+
+		{% block content %}{% endblock %}
+	</body>
+<html>
